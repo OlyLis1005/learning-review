@@ -1,0 +1,86 @@
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title></title>
+</head>
+<body>
+	<div>
+		<span>请输入金额：</span>
+		<input id='lowerNumber'>
+		<button type='button' onclick='autoNum()'>确定</button>
+	</div>
+	
+	<div>
+		<span>大写数字：</span>
+		<span id='upperNumber'>请输入一百万以内的金额！</span>
+	</div>
+	<script>
+		function autoNum() {
+			//js不能直接获取小数点后数字
+			// console.log(1.23%0.1);
+			//通过小数点将数字分割成两部分
+			var before_num = document.getElementById('lowerNumber').value.indexOf('.') !== -1 ? document.getElementById('lowerNumber').value.split('.')[0] : document.getElementById('lowerNumber').value
+
+			var after_num = document.getElementById('lowerNumber').value.indexOf('.') !== -1 ? document.getElementById('lowerNumber').value.split('.')[1].substring(0,2) : '00'
+			
+			// console.log('小数点前'+before_num);
+			// console.log('小数点后'+after_num);
+			var rest_num = before_num;
+			var upper_num = '';
+			if(before_num < 1000000 && before_num != NaN) {
+				// document.getElementById('upperNumber').innerText = '1';
+				upper_num += parseUpper(rest_num / 100000) + '拾';
+				rest_num = before_num % 100000;
+				upper_num += parseUpper(rest_num / 10000) + '万';
+				rest_num = before_num % 10000;
+				upper_num += parseUpper(rest_num / 1000) + '仟';
+				rest_num = before_num % 1000;
+				upper_num += parseUpper(rest_num / 100) + '佰'
+				rest_num = before_num % 100;
+				upper_num += parseUpper(rest_num / 10) + '拾'
+				rest_num = before_num % 10;
+				upper_num += parseUpper(rest_num / 1) + '元'
+				rest_num = before_num % 1;
+				
+				if(parseInt(after_num)) {
+					jiao_num = parseInt(after_num.substring(0,1)) ? parseUpper(parseInt(after_num.substring(0,1))) : '零';
+					upper_num += jiao_num + '角';
+					fen_num = parseInt(after_num.substring(1,2)) ? parseUpper(parseInt(after_num.substring(1,2))) : '零';
+					upper_num += fen_num + '分';
+				}else {
+					upper_num += '整';
+				}
+				
+
+				while(upper_num.substring(0,1) === '零') {
+					upper_num = upper_num.replace(upper_num.substring(0,2), '');
+					// console.log(upper_num);
+				}
+				
+				// console.log(upper_num);
+
+				document.getElementById('upperNumber').innerText = upper_num;
+			}else {
+				document.getElementById('upperNumber').innerText = '请输入一百万以内的金额！';
+			}
+
+			function parseUpper(number) {
+				var int_num = parseInt(number);
+				switch(int_num) {
+					case 0: return '零';break;
+					case 1: return '壹';break;
+					case 2: return '贰';break;
+					case 3: return '叁';break;
+					case 4: return '肆';break;
+					case 5: return '伍';break;
+					case 6: return '陆';break;
+					case 7: return '柒';break;
+					case 8: return '捌';break;
+					case 9: return '玖';break;
+				}
+			}
+		}
+	</script>
+
+</body>
+</html>
