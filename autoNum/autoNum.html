@@ -27,7 +27,7 @@
 			// console.log('小数点后'+after_num);
 			var rest_num = before_num;
 			var upper_num = '';
-			if(before_num < 1000000 && before_num != NaN) {
+			if(before_num < 1000000) {
 				// document.getElementById('upperNumber').innerText = '1';
 				upper_num += parseUpper(rest_num / 100000) + '拾';
 				rest_num = before_num % 100000;
@@ -35,11 +35,11 @@
 				rest_num = before_num % 10000;
 				upper_num += parseUpper(rest_num / 1000) + '仟';
 				rest_num = before_num % 1000;
-				upper_num += parseUpper(rest_num / 100) + '佰'
+				upper_num += parseUpper(rest_num / 100) + '佰';
 				rest_num = before_num % 100;
-				upper_num += parseUpper(rest_num / 10) + '拾'
+				upper_num += parseUpper(rest_num / 10) + '拾';
 				rest_num = before_num % 10;
-				upper_num += parseUpper(rest_num / 1) + '元'
+				upper_num += parseUpper(rest_num / 1) + '元';
 				rest_num = before_num % 1;
 				
 				if(parseInt(after_num)) {
